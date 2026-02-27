@@ -12,10 +12,12 @@ Render is perfect for containerized applications like this one.
 1.  **Connect GitHub**: Push your code to a GitHub repository.
 2.  **Create New Web Service**: Select "Web Service" on Render.
 3.  **Use Docker**: Render will automatically detect the `Dockerfile` at the root.
-4.  **Add Environment Variables**:
+4.  **Build Command**: If not using Docker, set the Build Command to: `./render-build.sh`
+5.  **Start Command**: `gunicorn --bind 0.0.0.0:5000 backend.app:app`
+6.  **Add Environment Variables**:
     *   `GROQ_API_KEY`: Your Groq API key.
     *   `GROQ_MODEL`: `llama-3.1-8b-instant`
-5.  **Deploy**: Render will build the frontend and backend together and serve it on a single URL.
+7.  **Deploy**: Render will build the frontend and backend together and serve it on a single URL.
 
 ## Option 2: Vercel (Quick Frontend-Style)
 Vercel can host the Python backend using Serverless Functions.
