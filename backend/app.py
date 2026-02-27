@@ -441,7 +441,7 @@ def serve(path):
 
 @app.route("/api/health", methods=["GET"])
 def health():
-    return jsonify({"status": "ok", "service": "OsteoAI Backend", "timestamp": datetime.datetime.utcnow().isoformat()})
+    return jsonify({"status": "ok", "service": "OsteoAI Backend", "version": "v1.0.1-relative-paths", "timestamp": datetime.datetime.utcnow().isoformat()})
 
 
 @app.route("/api/analyze", methods=["POST"])
