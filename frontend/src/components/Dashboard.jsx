@@ -5,7 +5,7 @@ import UploadSection from './UploadSection'
 import ClinicalForm from './ClinicalForm'
 import ResultsView from './ResultsView'
 
-const API_BASE = 'http://localhost:5000'
+const API_BASE = ''
 
 export default function Dashboard({ analysisResult, setAnalysisResult, setPage, theme, toggleTheme }) {
     const [step, setStep] = useState(1) // Start at step 1 for the new flow

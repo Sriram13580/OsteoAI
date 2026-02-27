@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
-const API_BASE = 'http://localhost:5000'
+const API_BASE = ''
 
 // Language options with BCP-47 tags used by Web Speech API
 const LANGUAGES = [
