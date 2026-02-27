@@ -1,0 +1,34 @@
+# OS & IDE
+.vscode/
+.idea/
+*.swp
+*.log
+.DS_Store
+
+# Programming Languages
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Large Files & Data
+ml_pipeline/data/
+*.h5
+*.pkl
+backend/models/*.h5
+backend/models/*.pkl
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# System generated artifacts
+brain/
+.gemini/
+/tmp/
