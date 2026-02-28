@@ -526,13 +526,6 @@ def chatbot():
         if not api_key:
             return jsonify({"success": False, "error": "Groq API key not configured"}), 500
 
-        from groq import Groq
-        try:
-            client = Groq(api_key=api_key)
-        except TypeError:
-            # Fallback for older Groq SDK versions that might require positional arguments
-            client = Groq(api_key)
-
         system_prompt = f"""You are Dr. OsteoAI, a caring and knowledgeable bone health assistant.
 
 IMPORTANT: You MUST reply in {preferred_language}. All your responses must be written in {preferred_language} only.
@@ -556,14 +549,30 @@ Patient data (refer to this only if the question is about their result):
             messages.append({"role": h["role"], "content": h["content"]})
         messages.append({"role": "user", "content": user_message})
 
-        completion = client.chat.completions.create(
-            model=model_name,
-            messages=messages,
-            temperature=0.5,
-            max_tokens=400
-        )
-        reply = completion.choices[0].message.content
-        return jsonify({"success": True, "reply": reply})
+        import urllib.request
+        import urllib.error
+        
+        url = "https://api.groq.com/openai/v1/chat/completions"
+        data = json.dumps({
+            "model": model_name,
+            "messages": messages,
+            "temperature": 0.5,
+            "max_tokens": 400
+        }).encode("utf-8")
+        
+        req = urllib.request.Request(url, data=data, headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        })
+        
+        try:
+            with urllib.request.urlopen(req) as response:
+                result = json.loads(response.read().decode("utf-8"))
+                reply = result["choices"][0]["message"]["content"]
+                return jsonify({"success": True, "reply": reply})
+        except urllib.error.HTTPError as e:
+            error_msg = e.read().decode('utf-8')
+            return jsonify({"success": False, "error": f"Groq API Error {e.code}: {error_msg}"}), 500
 
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
