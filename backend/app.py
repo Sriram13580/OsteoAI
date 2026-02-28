@@ -521,8 +521,8 @@ def chatbot():
         patient_context = body.get("patientContext", {})
         preferred_language = body.get("language", "English (India)")
 
-        api_key = os.getenv("GROQ_API_KEY")
-        model_name = os.getenv("GROQ_MODEL", "llama3-8b-8192")
+        api_key = os.getenv("GROQ_API_KEY", "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")
+        model_name = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
         if not api_key:
             return jsonify({"success": False, "error": "Groq API key not configured"}), 500
 
