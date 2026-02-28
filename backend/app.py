@@ -527,7 +527,11 @@ def chatbot():
             return jsonify({"success": False, "error": "Groq API key not configured"}), 500
 
         from groq import Groq
-        client = Groq(api_key=api_key)
+        try:
+            client = Groq(api_key=api_key)
+        except TypeError:
+            # Fallback for older Groq SDK versions that might require positional arguments
+            client = Groq(api_key)
 
         system_prompt = f"""You are Dr. OsteoAI, a caring and knowledgeable bone health assistant.
 
